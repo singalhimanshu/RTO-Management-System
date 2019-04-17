@@ -1,5 +1,8 @@
 <?php
-
+    $aadhar = '';
+    $uniqueid = '';
+    $aadharerr = '';
+    $uniqueiderr = '';
     if (isset($_POST['submit']))
     {
         require_once('Connection.php');
@@ -12,7 +15,15 @@
         $res = $db->query($sql);
         $row = $res->fetch_array();
         $db-> close();
-        if ($row[0] == $aadhar)
+        if ($row[0] != $aadhar)
+        {
+            $aadharerr = "Invalid Aadhar Number";
+        }
+        if ($row[1] != $uniqueid)
+        {
+            $uniqueiderr = "Invalid Unique id"; 
+        }
+        if ($row[0] == $aadhar AND $row[1] == $uniqueid)
         {
             $_SESSION['aadhar'] = $aadhar;
             $_SESSION['rto'] = $row[2];
@@ -40,13 +51,13 @@
             <form method="POST" onsubmit="return validation()" class="bg-light">
                 <div class="form-group">
 					<label for="aadhar" class="font-weight-bold"> Enter Aadhar Number: </label>
-					<input type="number" name="aadhar" class="form-control" id="aadhar">
-					<span id="aadharerr" class="text-danger font-weight-bold"> </span>
+					<input type="number" name="aadhar" class="form-control" id="aadhar" value="<?php echo $aadhar; ?>">
+					<span id="aadharerr" class="text-danger font-weight-bold"> <?php echo $aadharerr; ?> </span>
 				</div>
                 <div class="form-group">
 					<label for="id" class="font-weight-bold"> Enter Unique id: </label>
-					<input type="text" name="id" class="form-control" id="id">
-					<span id="iderr" class="text-danger font-weight-bold"> </span>
+					<input type="text" name="id" class="form-control" id="id" value="<?php echo $uniqueid; ?>">
+					<span id="iderr" class="text-danger font-weight-bold"> <?php echo $uniqueiderr; ?> </span>
 				</div>
                 <center><input type="submit" name="submit" value="SUBMIT" class="btn btn-success"><center>
             </form>

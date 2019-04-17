@@ -1,4 +1,8 @@
 <?php
+    $llno = '';
+    $aadhar ='';
+    $llnoerr = '';
+    $aadharerr ='';
     if (isset($_POST['submit']))
     {
         require_once('Connection.php');
@@ -12,6 +16,18 @@
         $row = $res->fetch_assoc();
         $rto = $row['rto'];
         $db->close();
+        if ($row['status'] == 0)
+        {
+            $aadharerr = "Status Pending";
+        }
+        if ($row['llno'] !== $llno)
+        {
+            $llnoerr = "Invalid ll no";
+        }
+        if ($row['aadhar'] !== $aadhar)
+        {
+            $aadharerr = "Invalid aadhar no";
+        }
         if ($row['status'] AND $row['llno'] === $llno AND $row['aadhar'] === $aadhar)
         {
             $_SESSION['llno'] = $llno;
@@ -40,13 +56,13 @@
             <form method="POST" onsubmit="return validation()" class="bg-light">
                 <div class="form-group">
 					<label for="llno" class="font-weight-bold"> Enter LL No: </label>
-					<input type="number" name="llno" class="form-control" id="llno">
-					<span id="llnoerr" class="text-danger font-weight-bold"> </span>
+					<input type="number" name="llno" class="form-control" id="llno" value="<?php echo $llno; ?>">
+					<span id="llnoerr" class="text-danger font-weight-bold"> <?php echo $llnoerr; ?> </span>
 				</div>
                 <div class="form-group">
 					<label for="aadhar" class="font-weight-bold"> Enter Aadhar No: </label>
-					<input type="number" name="aadhar" class="form-control" id="aadhar">
-					<span id="aadharerr" class="text-danger font-weight-bold"> </span>
+					<input type="number" name="aadhar" class="form-control" id="aadhar" value="<?php echo $aadhar; ?>">
+					<span id="aadharerr" class="text-danger font-weight-bold"> <?php echo $aadharerr; ?> </span>
 				</div>
                 <center><input type="submit" name="submit" value="SUBMIT" class="btn btn-success"><center>
             </form>

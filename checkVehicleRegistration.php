@@ -1,5 +1,6 @@
 <?php
-
+    $tempNo = '';
+    $tempNoerr = '';
     if (isset($_POST['submit']))
     {
         session_start();
@@ -13,7 +14,11 @@
         {
             die($db->error);
         }
-        if ($res)
+        if ($res->num_rows == 0)
+        {
+            $tempNoerr = "Invalid Temp Number";
+        }
+        else if ($res)
         {
             $row = $res->fetch_array();
             $db->close();
@@ -43,8 +48,8 @@
             <form method="POST" onsubmit="return validation()" class="bg-light">
                 <div class="form-group">
 					<label for="tempNo" class="font-weight-bold"> Enter Temp Number: </label>
-					<input type="number" name="tempNo" class="form-control" id="tempNo">
-					<span id="tempNoerr" class="text-danger font-weight-bold"> </span>
+					<input type="number" name="tempNo" class="form-control" id="tempNo" value="<?php echo $tempNo;?>">
+					<span id="tempNoerr" class="text-danger font-weight-bold"> <?php echo $tempNoerr;?> </span>
 				</div>
                 <center><input type="submit" name="submit" value="SUBMIT" class="btn btn-success"><center>
             </form>

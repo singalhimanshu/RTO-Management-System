@@ -38,9 +38,24 @@
                             <div class="top-headline">
                                 <p>Welcome to <span>RTO Management System</span></p>
                             </div>
-                            <!-- Top Login & Faq & Earn Monery btn -->
                             <div class="login-faq-earn-money">
-                                <a href="adminLogin.php">Admin Login</a>
+                                <?php
+                                    error_reporting(0);
+                                    if ($_SESSION['loggedin'])
+                                    {
+                                        print("<form method='post'>
+                                        <input type='submit' name='logout' value='LOGOUT'>
+                                        </form>
+                                        ");
+                                        if (isset($_POST['logout']))
+                                        {
+                                            session_destroy();
+                                            header("Location: adminPanel.php");
+                                        }
+                                    }
+                                    else 
+                                        print("<a href='adminLogin.php'>Admin Login</a>");
+                                ?>
                             </div>
                         </div>
                     </div>

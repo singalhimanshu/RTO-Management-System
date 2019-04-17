@@ -1,5 +1,15 @@
 <?php
-
+    $name = '';
+    $fatherName = '';
+    $dob = '';
+    $bloodGroup = '';
+    $address = '';
+    $aadhar = '';
+    $gender = '';
+    $mobileNumber = '';
+    $email = '';
+    $rto = '';
+    $aadharerr = '';
     if (isset($_POST['submit']))
     {
         session_start();
@@ -16,25 +26,34 @@
         $rto = $_POST['rto'];
         $obj = new Connection();
         $db = $obj->getNewConnection();
-        $Date = date("Y-m-d");
-        $examDate = date('Y-m-d', strtotime($Date . ' + 15 days'));
-        $sql = "insert into ll(name, fatherName, dob, bloodGroup, address, aadhar, gender, mobileNumber, email, rto, status, examDate) 
-                values('$name', '$fatherName', '$dob', '$bloodGroup', '$address', '$aadhar', '$gender', '$mobileNumber', '$email', '$rto', 0, '$examDate') ";
-        $res = $db->query($sql);
-        $sql1 = "select id, status from ll where aadhar='$aadhar'";
-        $result = $db->query($sql1);
-        $row = $result->fetch_array();
-        $id = $row[0];
-        $status = $row[1];
-        if ($res)
+        $q = "select * from ll where aadhar=$aadhar";
+        $r = $db->query($q);
+        if ($r->num_rows > 0)
         {
-            $_SESSION['rto'] = $rto;
-            $_SESSION['aadhar'] = $aadhar;
-            $db->close();
-            header("Location: llstatus.php");
-            die();
+            $aadharerr = "Aadhar Number already registered";
         }
-        $db->close();
+        else 
+        {
+            $Date = date("Y-m-d");
+            $examDate = date('Y-m-d', strtotime($Date . ' + 15 days'));
+            $sql = "insert into ll(name, fatherName, dob, bloodGroup, address, aadhar, gender, mobileNumber, email, rto, status, examDate) 
+                    values('$name', '$fatherName', '$dob', '$bloodGroup', '$address', '$aadhar', '$gender', '$mobileNumber', '$email', '$rto', 0, '$examDate') ";
+            $res = $db->query($sql);
+            $sql1 = "select id, status from ll where aadhar='$aadhar'";
+            $result = $db->query($sql1);
+            $row = $result->fetch_array();
+            $id = $row[0];
+            $status = $row[1];
+            if ($res)
+            {
+                $_SESSION['rto'] = $rto;
+                $_SESSION['aadhar'] = $aadhar;
+                $db->close();
+                header("Location: llstatus.php");
+                die();
+            }
+            $db->close();
+        }
     }
 
 ?>
@@ -56,52 +75,52 @@
             <form method="POST" onsubmit="return validation()" class="bg-light">
                 <div class="form-group">
 					<label for="name" class="font-weight-bold"> Enter Name: </label>
-					<input type="text" name="name" class="form-control" id="name">
+					<input type="text" name="name" class="form-control" id="name" value="<?php echo $name; ?>">
 					<span id="nameerr" class="text-danger font-weight-bold"> </span>
 				</div>
                 <div class="form-group">
 					<label for="fatherName" class="font-weight-bold"> Enter Father's Name: </label>
-					<input type="text" name="fatherName" class="form-control" id="fatherName">
+					<input type="text" name="fatherName" class="form-control" id="fatherName" value="<?php echo $fatherName; ?>">
 					<span id="fatherNameerr" class="text-danger font-weight-bold"> </span>
 				</div>
                 <div class="form-group">
 					<label for="dob" class="font-weight-bold"> Enter DOB: </label>
-					<input type="date" name="dob" class="form-control" id="dob">
+					<input type="date" name="dob" class="form-control" id="dob" value="<?php echo $dob; ?>">
 					<span id="doberr" class="text-danger font-weight-bold"> </span>
 				</div>
                 <div class="form-group">
 					<label for="bloodGroup" class="font-weight-bold"> Enter Blood Group: </label>
-					<input type="text" name="bloodGroup" class="form-control" id="bloodGroup">
+					<input type="text" name="bloodGroup" class="form-control" id="bloodGroup" value="<?php echo $bloodGroup; ?>">
 					<span id="bloodGrouperr" class="text-danger font-weight-bold"> </span>
 				</div>
                 <div class="form-group">
 					<label for="address" class="font-weight-bold"> Enter Address: </label>
-					<input type="text" name="address" class="form-control" id="address">
+					<input type="text" name="address" class="form-control" id="address" value="<?php echo $email; ?>">
 					<span id="addresserr" class="text-danger font-weight-bold"> </span>
 				</div>
                 <div class="form-group">
 					<label for="aadhar" class="font-weight-bold"> Enter Aadhar Number: </label>
-					<input type="text" name="aadhar" class="form-control" id="aadhar">
-					<span id="aadharerr" class="text-danger font-weight-bold"> </span>
+					<input type="text" name="aadhar" class="form-control" id="aadhar" value="<?php echo $aadhar; ?>">
+					<span id="aadharerr" class="text-danger font-weight-bold"> <?php echo $aadharerr; ?> </span>
 				</div>
                 <div class="form-group">
 					<label for="gender" class="font-weight-bold"> Enter Gender: </label>
-					<input type="text" name="gender" class="form-control" id="gender">
+					<input type="text" name="gender" class="form-control" id="gender" value="<?php echo $gender; ?>">
 					<span id="gendererr" class="text-danger font-weight-bold"> </span>
 				</div>
                 <div class="form-group">
 					<label for="mobileNumber" class="font-weight-bold"> Enter Mobile Number: </label>
-					<input type="number" name="mobileNumber" class="form-control" id="mobileNumber">
+					<input type="number" name="mobileNumber" class="form-control" id="mobileNumber" value="<?php echo $mobileNumber; ?>">
 					<span id="mobileNumbererr" class="text-danger font-weight-bold"> </span>
 				</div>
                 <div class="form-group">
 					<label for="email" class="font-weight-bold"> Enter Email ID: </label>
-					<input type="email" name="email" class="form-control" id="email">
+					<input type="email" name="email" class="form-control" id="email" value="<?php echo $email; ?>">
 					<span id="emailerr" class="text-danger font-weight-bold"> </span>
 				</div>
                 <div class="form-group">
 					<label for="rto" class="font-weight-bold"> Enter RTO Office: </label>
-					<input type="text" name="rto" class="form-control" id="rto">
+					<input type="text" name="rto" class="form-control" id="rto" value="<?php echo $rto; ?>">
 					<span id="rtoerr" class="text-danger font-weight-bold"> </span>
 				</div>
                 <center><input type="submit" name="submit" value="SUBMIT" class="btn btn-success"><center>

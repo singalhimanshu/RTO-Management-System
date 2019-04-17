@@ -1,4 +1,13 @@
 <?php
+    error_reporting(0);
+    $vehicleNumber = '';
+    $vehicleNumbererr = '';
+    $chassisNumber = '';
+    $chassisNumbererr = '';
+    $engineNumber = '';
+    $engineNumbererr = '';
+    $aadharNumber = '';
+    $aadharNumbererr = '';
     if (isset($_POST['submit']))
     {
         require_once('Connection.php');
@@ -16,6 +25,14 @@
         if (!$res)
             die($db->error);
         $row = $res->fetch_assoc();
+        if ($row['vehicleNumber'] !== $vehicleNumber)
+            $vehicleNumbererr = "Invalid Vehicle Number";
+        if ($row['chassisNo'] !== $chassisNo)
+            $chassisNoerr = "Invalid Chassis Number";
+        if ($row['engineNo'] !== $engineNo)
+            $engineNoerr = "Invalid Engine Number";
+        if ($row['aadharNumber'] !== $aadharNumber)
+            $aadharNumbererr = "Invalid Aadhar Number";
         if ($row['vehicleNumber'] === $vehicleNumber AND $row['chassisNo'] === $chassisNumber AND $row['engineNo'] === $engineNumber AND $row['aadhar'] === $aadharNumber)
         {
             $db->close();
@@ -43,23 +60,23 @@
             <form method="POST" onsubmit="return validation()" class="bg-light">
                 <div class="form-group">
 					<label for="vehicleNumber" class="font-weight-bold"> Enter Vehicle Number: </label>
-					<input type="number" name="vehicleNumber" class="form-control" id="vehicleNumber">
-					<span id="vehicleNumbererr" class="text-danger font-weight-bold"> </span>
+					<input type="number" name="vehicleNumber" class="form-control" id="vehicleNumber" value="<?php echo $vehicleNumber;?>">
+					<span id="vehicleNumbererr" class="text-danger font-weight-bold"> <?php echo $vehicleNumbererr; ?> </span>
 				</div>
                 <div class="form-group">
 					<label for="chassisNumber" class="font-weight-bold"> Enter Chassis Number: </label>
-					<input type="number" name="chassisNumber" class="form-control" id="chassisNumber">
-					<span id="chassisNumbererr" class="text-danger font-weight-bold"> </span>
+					<input type="number" name="chassisNumber" class="form-control" id="chassisNumber" value="<?php echo $chassisNumber;?>">
+					<span id="chassisNumbererr" class="text-danger font-weight-bold"> <?php echo $chassisNumbererr; ?> </span>
 				</div>
                 <div class="form-group">
 					<label for="engineNumber" class="font-weight-bold"> Enter Engine Number: </label>
-					<input type="number" name="engineNumber" class="form-control" id="engineNumber">
-					<span id="engineNumbererr" class="text-danger font-weight-bold"> </span>
+					<input type="number" name="engineNumber" class="form-control" id="engineNumber" value="<?php echo $engineNumber;?>">
+					<span id="engineNumbererr" class="text-danger font-weight-bold"> <?php echo $engineNumbererr; ?> </span>
 				</div>
                 <div class="form-group">
 					<label for="aadharNumber" class="font-weight-bold"> Enter Aadhar Number: </label>
-					<input type="number" name="aadharNumber" class="form-control" id="aadharNumber">
-					<span id="aadharNumbererr" class="text-danger font-weight-bold"> </span>
+					<input type="number" name="aadharNumber" class="form-control" id="aadharNumber" value="<?php echo $aadharNumber;?>">
+					<span id="aadharNumbererr" class="text-danger font-weight-bold"> <?php echo $aadharNumbererr; ?> </span>
 				</div>
                 <center><input type="submit" name="submit" value="SUBMIT" class="btn btn-success"><center>
             </form>

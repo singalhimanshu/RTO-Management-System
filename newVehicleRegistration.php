@@ -1,7 +1,8 @@
 <?php
+    session_start();
+    $tempNo=''; $tempNoerr='';
     if (isset($_POST['submit']))
     {
-        session_start();
         require_once('Connection.php');
         $obj = new Connection();
         $db = $obj->getNewConnection();
@@ -15,21 +16,30 @@
         $fuelType = $_POST['fuelType'];
         $seatingType = $_POST['seatingType'];
         $rto = $_POST['rto'];
-        
-        $sql = "insert into vehicle(tempNo, name, aadhar, chassisNo, engineNo, vehicleClass, color, fuelType, seatingType, rto) 
-        values('$tempNo', '$name', '$aadhar', '$chassisNo', '$engineNo', '$vehicleClass', '$color', '$fuelType', '$seatingType', '$rto')";
-        $res = $db -> query($sql);
-        if ($res)
+        $tquery = "select * from vehicle where tempNo=$tempNo";
+        $tres = $db->query($tquery);
+        if ($tres -> num_rows > 0)
         {
-            $db -> close();
-            $_SESSION['tempNo'] = $tempNo;
-            $_SESSION['status'] = 0;
-            header("Location: vehicleRegResult.php");
-            die();
-            
+            $tempNoerr = "**Vehicle already registered";
+            // die();
         }
         else 
-            echo "not in res";
+        {
+            $sql = "insert into vehicle(tempNo, name, aadhar, chassisNo, engineNo, vehicleClass, color, fuelType, seatingType, rto) 
+            values('$tempNo', '$name', '$aadhar', '$chassisNo', '$engineNo', '$vehicleClass', '$color', '$fuelType', '$seatingType', '$rto')";
+            $res = $db -> query($sql);
+            if ($res)
+            {
+                $db -> close();
+                $_SESSION['tempNo'] = $tempNo;
+                $_SESSION['status'] = 0;
+                header("Location: vehicleRegResult.php");
+                die();
+                
+            }
+            else 
+                echo "not in res";
+        }
     }
 ?>
 
@@ -50,61 +60,61 @@
             <form method="POST" onsubmit="return validation()" class="bg-light">
                 <div class="form-group">
 					<label for="tempNo" class="font-weight-bold"> Temporary Number: </label>
-					<input type="number" name="tempNo" class="form-control" id="tempNo">
-					<span id="tempNoerr" class="text-danger font-weight-bold"> </span>
+					<input type="number" name="tempNo" class="form-control" id="tempNo" value="<?php echo $tempNo;?>"> 
+					<span id="tempNoerr" name="tempNoerr" class="text-danger font-weight-bold"> <?php echo $tempNoerr;?> </span>
 				</div>
 
                 <div class="form-group">
 					<label for="name" class="font-weight-bold"> Name: </label>
-					<input type="text" name="name" class="form-control" id="name">
+					<input type="text" name="name" class="form-control" id="name" value="<?php echo $name;?>">
 					<span id="nameerr" class="text-danger font-weight-bold"> </span>
 				</div>
 
                 <div class="form-group">
 					<label for="aadhar" class="font-weight-bold"> Aadhar Number: </label>
-					<input type="number" name="aadhar" class="form-control" id="aadhar">
+					<input type="number" name="aadhar" class="form-control" id="aadhar" value="<?php echo $aadhar;?>">
 					<span id="aadharerr" class="text-danger font-weight-bold"> </span>
 				</div>
 
                 <div class="form-group">
 					<label for="chassisNo" class="font-weight-bold"> Chassis Number: </label>
-					<input type="number" name="chassisNo" class="form-control" id="chassisNo">
+					<input type="number" name="chassisNo" class="form-control" id="chassisNo" value="<?php echo $chassisNo;?>">
 					<span id="chassisNoerr" class="text-danger font-weight-bold"> </span>
 				</div>
 
                 <div class="form-group">
 					<label for="engineNo" class="font-weight-bold"> Engine Number: </label>
-					<input type="number" name="engineNo" class="form-control" id="engineNo">
+					<input type="number" name="engineNo" class="form-control" id="engineNo" value="<?php echo $engineNo;?>">
 					<span id="engineNoerr" class="text-danger font-weight-bold"> </span>
 				</div>
 
                 <div class="form-group">
 					<label for="vehicleClass" class="font-weight-bold"> Vehicle Class: </label>
-					<input type="text" name="vehicleClass" class="form-control" id="vehicleClass">
+					<input type="text" name="vehicleClass" class="form-control" id="vehicleClass" value="<?php echo $vehicleClass;?>">
 					<span id="vehicleClasserr" class="text-danger font-weight-bold"> </span>
 				</div>
 
                 <div class="form-group">
 					<label for="color" class="font-weight-bold"> Color: </label>
-					<input type="text" name="color" class="form-control" id="color">
+					<input type="text" name="color" class="form-control" id="color" value="<?php echo $color;?>">
 					<span id="colorerr" class="text-danger font-weight-bold"> </span>
 				</div>
 
                 <div class="form-group">
 					<label for="fuelType" class="font-weight-bold"> Fuel Type: </label>
-					<input type="text" name="fuelType" class="form-control" id="fuelType">
+					<input type="text" name="fuelType" class="form-control" id="fuelType" value="<?php echo $fuelType;?>">
 					<span id="fuelTypeerr" class="text-danger font-weight-bold"> </span>
 				</div>
 
                 <div class="form-group">
 					<label for="seatingType" class="font-weight-bold"> Seating Type: </label>
-					<input type="text" name="seatingType" class="form-control" id="seatingType">
+					<input type="text" name="seatingType" class="form-control" id="seatingType" value="<?php echo $seatingType;?>">
 					<span id="seatingTypeerr" class="text-danger font-weight-bold"> </span>
 				</div>
 
                 <div class="form-group">
 					<label for="rto" class="font-weight-bold"> RTO: </label>
-					<input type="text" name="rto" class="form-control" id="rto">
+					<input type="text" name="rto" class="form-control" id="rto" value="<?php echo $rto;?>">
 					<span id="rtoerr" class="text-danger font-weight-bold"> </span>
 				</div>
                 <center><input type="submit" name="submit" value="SUBMIT" class="btn btn-success"><center>

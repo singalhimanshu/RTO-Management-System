@@ -1,5 +1,6 @@
 <?php
-
+    $aadhar = '';
+    $aadharerr = '';
     if (isset($_POST['submit']))
     {
         require_once('Connection.php');
@@ -11,6 +12,8 @@
         $res = $db->query($sql);
         $row = $res->fetch_array();
         $db-> close();
+        if ($row[0] != $aadhar)
+            $aadharerr = "Invalid Aadhar Number";
         if ($row[0] == $aadhar)
         {
             $_SESSION['aadhar'] = $aadhar;
@@ -39,8 +42,8 @@
             <form method="POST" onsubmit="return validation()" class="bg-light">
                 <div class="form-group">
 					<label for="aadhar" class="font-weight-bold"> Enter Aadhar Number: </label>
-					<input type="number" name="aadhar" class="form-control" id="aadhar">
-					<span id="aadharerr" class="text-danger font-weight-bold"> </span>
+					<input type="number" name="aadhar" class="form-control" id="aadhar" value="<?php echo $aadhar; ?>">
+					<span id="aadharerr" class="text-danger font-weight-bold"> <?php echo $aadharerr; ?> </span>
 				</div>
                 <center><input type="submit" name="submit" value="SUBMIT" class="btn btn-success"><center>
             </form>
