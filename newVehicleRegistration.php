@@ -130,43 +130,104 @@
                 document.getElementById('tempNoerr').innerHTML =" ** Please fill the tempNo field";
                 return false;
             }
+            else if(tempNo.toString().length != 10) {
+				document.getElementById('tempNoerr').innerHTML =" ** Temp No should be of 10 digits";
+				return false;	
+			}
+            else 
+            {
+                document.getElementById('tempNoerr').innerHTML ="";
+            }
             if (name == "") {
                 document.getElementById('nameerr').innerHTML =" ** Please fill the name field";
                 return false;
+            }
+            else if (!(/^[a-zA-z]+$/.test(name)))
+            {
+                document.getElementById('nameerr').innerHTML =" ** Name cannot contain anything other than characters";
+                return false;
+            }
+            else 
+            {
+                document.getElementById('nameerr').innerHTML ="";
             }
             if (aadhar == "") {
                 document.getElementById('aadharerr').innerHTML =" ** Please fill the aadhar field";
                 return false;
             }
+            else if(aadhar.toString().length != 10) {
+				document.getElementById('aadharerr').innerHTML =" ** Aadhar No should be of 10 digits";
+				return false;	
+			}
+            else 
+            {
+                document.getElementById('aadharerr').innerHTML ="";
+            }
             if (chassisNo == "") {
                 document.getElementById('chassisNoerr').innerHTML =" ** Please fill the chassisNo field";
                 return false;
+            }
+            else if(chassisNo.toString().length != 6) {
+				document.getElementById('chassisNoerr').innerHTML =" ** Chassis No should be of 6 digits";
+				return false;	
+			}
+            else 
+            {
+                document.getElementById('chassisNoerr').innerHTML ="";
             }
             if (engineNo == "") {
                 document.getElementById('engineNoerr').innerHTML =" ** Please fill the engineNo field";
                 return false;
             }
+            else if(engineNo.toString().length != 10) {
+				document.getElementById('engineNoerr').innerHTML =" ** Engine No should be of 10 digits";
+				return false;	
+			}
+            else 
+            {
+                document.getElementById('engineNoerr').innerHTML ="";
+            }
             if (vehicleClass == "") {
                 document.getElementById('vehicleClasserr').innerHTML =" ** Please fill the vehicleClass field";
                 return false;
+            }
+            else 
+            {
+                document.getElementById('vehicleClasserr').innerHTML ="";
             }
             if (color == "") {
                 document.getElementById('colorerr').innerHTML =" ** Please fill the color field";
                 return false;
             }
+            else 
+            {
+                document.getElementById('colorerr').innerHTML ="";
+            }
             if (fuelType == "") {
                 document.getElementById('fuelTypeerr').innerHTML =" ** Please fill the fuelType field";
                 return false;
+            }
+            else 
+            {
+                document.getElementById('fuelTypeerr').innerHTML ="";
             }
             if (seatingType == "") {
                 document.getElementById('seatingTypeerr').innerHTML =" ** Please fill the seatingType field";
                 return false;
             }
+            else 
+            {
+                document.getElementById('seatingTypeerr').innerHTML ="";
+            }
             if (rto == "") {
                 document.getElementById('rtoerr').innerHTML =" ** Please fill the rto field";
                 return false;
             }
-
+            else 
+            {
+                document.getElementById('rtoerr').innerHTML ="";
+            }
+            return true;
         }
     </script>
 

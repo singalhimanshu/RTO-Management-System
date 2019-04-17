@@ -8,7 +8,13 @@
 </head>
 <body>
     <?php require_once('header.php'); ?>
+    <br>
+    <div class="row">
+        <div class="col-lg-6 m-auto d-block">
+        <ul class="list-group">
+        <li class="list-group-item text-muted" contenteditable="false">LL Status</li>
     <?php
+        error_reporting(0);
         session_start();
         require_once('Connection.php');
         $rto = $_SESSION['rto'];
@@ -26,16 +32,19 @@
         $db->close();
         if ($status)
         {
-            print("Status: Approved <br> <a href='showllHelp.php'>Show LL </a>");
+            print("<li class='list-group-item text-right'><span class='pull-left'><strong class=''>Status:</strong></span>Approved <a href='showllHelp.php'>Show LL </a></li>");
             session_destroy();
             die();
         }
-        print(" Status: Pending <br>
-                Test Date: $examDate <br>
-                RTO Office: $rto <br>
-                Unique ID: $id <br>
-            ");
+        print("<li class='list-group-item text-right'><span class='pull-left'><strong class=''>Status:</strong></span>Pending</li>
+        <li class='list-group-item text-right'><span class='pull-left'><strong class=''>Test Date:</strong></span>$examDate</li>
+        <li class='list-group-item text-right'><span class='pull-left'><strong class=''>RTO Office:</strong></span>$rto</li>
+        <li class='list-group-item text-right'><span class='pull-left'><strong class=''>Unique ID:</strong></span>$id</li>");
     ?>
+    </ul>
+        </div>
+    </div>
+    <br>
     <?php require_once('footer.php'); ?>
     <!-- ##### All Javascript Script ##### -->
     <!-- jQuery-2.2.4 js -->

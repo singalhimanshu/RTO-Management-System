@@ -7,8 +7,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
-    <?php require_once('header.php'); ?>
+    <?php require_once('header.php'); ?><br>
+    <div class='col-lg-6 m-auto d-block'>
     <?php
+        require_once('header.php');
+        error_reporting(0);
         session_start();
         require_once('Connection.php');
         $aadhar = $_SESSION['aadhar'];
@@ -17,22 +20,37 @@
         $db = $obj->getNewConnection();
         $sql = "select * from dl where aadhar=$aadhar";
         $res = $db->query($sql);
+        if (!$res)
+            die($db->error);
         $row = $res->fetch_assoc();
         $status = $row['status'];
         $id = $row['id'];
         $examDate = $row['examDate'];
         if ($status)
         {
-            print("DL approved Generate your DL <a href='showdlHelp.php'>here</a>");
+            print("<div class='alert alert-success' role='alert'>
+            <strong>DL approved!</strong> Generate your DL <a href='showdlHelp.php' class='alert-link'>here</a>.
+          </div>");
             session_destroy();
-            die();
+            // die();
         }
-        print(" Status: Pending <br>
-                Test Date: $examDate <br>
-                RTO Office: $rto <br>
-                Unique ID: $id <br>
-            ");
+        else 
+        {
+            print(" <div class='row'>
+                    <div class='col-lg-6 m-auto d-block'>
+                    <ul class='list-group'>
+                    <li class='list-group-item text-muted' contenteditable='false'>DL Status</li>
+                    <li class='list-group-item text-right'><span class='pull-left'><strong class=''>Status:</strong></span>Pending</li>
+                    <li class='list-group-item text-right'><span class='pull-left'><strong class=''>Test Date:</strong></span>$examDate</li>
+                    <li class='list-group-item text-right'><span class='pull-left'><strong class=''>RTO Office:</strong></span>$rto</li>
+                    <li class='list-group-item text-right'><span class='pull-left'><strong class=''>Unique ID:</strong></span>$id</li>
+                    </ul>
+                    </div>
+                    </div>
+                ");
+        }
     ?>
+    </div><br>
     <?php require_once('footer.php'); ?>
     <!-- ##### All Javascript Script ##### -->
     <!-- jQuery-2.2.4 js -->

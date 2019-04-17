@@ -54,6 +54,7 @@
                 document.getElementById('aadharerr').innerHTML =" ** Please fill the aadhar field";
                 return false;
             }
+            return true;
         }
     </script>
     <?php require_once('footer.php'); ?>

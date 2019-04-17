@@ -38,7 +38,7 @@
                         </div>
                         <div class="col-12 col-md-5">
                             <div class="hero-slides-thumb" >
-                                <img src="img/bg-img/bg-2.png" alt="">
+                                <img src="img/bg-img/rto.png" alt="">
                             </div>
                         </div>
                     </div>

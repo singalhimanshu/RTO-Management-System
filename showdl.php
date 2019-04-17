@@ -8,7 +8,13 @@
 </head>
 <body>
     <?php require_once('header.php'); ?>
+        <br>
+        <div class="row">
+            <div class="col-lg-6 m-auto d-block">
+            <ul class="list-group">
+            <li class="list-group-item text-muted" contenteditable="false">DL:</li>
     <?php
+        error_reporting(0);
         session_start();
         require_once('Connection.php');
         $dlno = $_SESSION['dlno'];
@@ -27,12 +33,21 @@
         $aadhar = $row['aadhar'];
         $validity = $row['validity'];
         $issueDate = $row['issueDate'];
-        print("DL NO: $dlno <br> Name: $name <br> Father's Name: $fatherName <br>
-            DOB: $dob <br> Blood Group: $bloodGroup <br> Address: $address <br>
-            Aadhar Number: $aadhar <br> Issue Date: $issueDate <br> Validity: $validity");
+        print("<li class='list-group-item text-right'><span class='pull-left'><strong class=''>DL NO:</strong></span>$dlno</li>
+        <li class='list-group-item text-right'><span class='pull-left'><strong class=''>Name:</strong></span>$name</li>
+        <li class='list-group-item text-right'><span class='pull-left'><strong class=''>Father's Name:</strong></span>$fatherName</li>
+        <li class='list-group-item text-right'><span class='pull-left'><strong class=''>DOB:</strong></span>$dob</li>
+        <li class='list-group-item text-right'><span class='pull-left'><strong class=''>Blood Group:</strong></span>$bloodGroup</li>
+        <li class='list-group-item text-right'><span class='pull-left'><strong class=''>Address:</strong></span>$address</li>
+        <li class='list-group-item text-right'><span class='pull-left'><strong class=''>Aadhar Number:</strong></span>$aadhar</li>
+        <li class='list-group-item text-right'><span class='pull-left'><strong class=''>Issue Date:</strong></span>$issueDate</li>
+        <li class='list-group-item text-right'><span class='pull-left'><strong class=''>Validity:</strong></span>$validity</li>");
         $db->close();
         session_destroy();
     ?>
+    </ul>
+    </div>
+    </div><br>
     <?php require_once('footer.php'); ?>
     <!-- ##### All Javascript Script ##### -->
     <!-- jQuery-2.2.4 js -->

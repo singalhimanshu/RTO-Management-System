@@ -17,6 +17,13 @@
     $db = $obj->getNewConnection();
     $sql = "select * from vehicle";
     $res = $db->query($sql);
+    if (isset($_POST['action']) && isset($_POST['id'])) {
+        if ($_POST['action'] == 'Edit') {
+            $_SESSION['aadhar'] = $_POST['id'];
+            header('Location: editVehicleData.php');
+            die();
+        }
+    }
 ?>
 
 <!DOCTYPE html>
@@ -75,13 +82,3 @@
     <script src="js/active.js"></script>
 </body>
 </html>
-
-<?php
-    if (isset($_POST['action']) && isset($_POST['id'])) {
-        if ($_POST['action'] == 'Edit') {
-            $_SESSION['aadhar'] = $_POST['id'];
-            header('Location: editVehicleData.php');
-            die();
-        }
-    }
-?>
