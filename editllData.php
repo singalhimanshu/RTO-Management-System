@@ -27,7 +27,7 @@
         if (!$res1)
             die($db->error);
         $db->close();
-        session_destroy();
+        // session_destroy();
         header("Location: viewllData.php");
         die();
         $db->close();

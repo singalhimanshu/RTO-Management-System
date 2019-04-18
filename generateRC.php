@@ -12,7 +12,6 @@
     <div class="row">
         <div class="col-lg-6 m-auto d-block">
         <ul class="list-group">
-        <li class="list-group-item text-muted" contenteditable="false">Duplicate RC</li>
             <?php
                 error_reporting(0);
                 session_start();
@@ -32,7 +31,11 @@
                 $fuelType = $row['fuelType'];
                 $seatingType = $row['seatingType'];
                 $rto = $row['rto'];
-                print("<li class='list-group-item text-right'><span class='pull-left'><strong class=''>Vehicle Number:</strong></span>$vehicleNumber</li>
+                $status =  $row['status'];
+                if ($status)
+                print("<li class='list-group-item text-muted' contenteditable='false'>Duplicate RC</li>
+
+                <li class='list-group-item text-right'><span class='pull-left'><strong class=''>Vehicle Number:</strong></span>$vehicleNumber</li>
                 <li class='list-group-item text-right'><span class='pull-left'><strong class=''>Name:</strong></span>$name</li>
                 <li class='list-group-item text-right'><span class='pull-left'><strong class=''>Aadhar Number:</strong></span>$aadhar</li>
                 <li class='list-group-item text-right'><span class='pull-left'><strong class=''>Chassis Number:</strong></span>$chassisNo</li>
@@ -43,6 +46,11 @@
                 <li class='list-group-item text-right'><span class='pull-left'><strong class=''>Seating Type:</strong></span>$seatingType</li>
                 <li class='list-group-item text-right'><span class='pull-left'><strong class=''>RTO:</strong></span>$rto</li>
                 ");
+                else 
+                print("
+                <h1>Vehicle Registration Status</h1> <br>
+                <h2>Status : Pending <br></h2>
+            ");
                 session_destroy();
                 $db->close();
             ?>

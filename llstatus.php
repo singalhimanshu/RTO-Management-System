@@ -32,16 +32,18 @@
         $db->close();
         if ($status)
         {
-            print("<li class='list-group-item text-right'><span class='pull-left'><strong class=''>Status:</strong></span>Approved <a href='showllHelp.php'>Show LL </a></li>");
+            print("<li class='list-group-item text-right'><span class='pull-left'><strong class=''>Status:</strong></span>Approved</li>");
             session_destroy();
-            die();
+            // die();
         }
-        print("<li class='list-group-item text-right'><span class='pull-left'><strong class=''>Status:</strong></span>Pending</li>
-        <li class='list-group-item text-right'><span class='pull-left'><strong class=''>Test Date:</strong></span>$examDate</li>
-        <li class='list-group-item text-right'><span class='pull-left'><strong class=''>RTO Office:</strong></span>$rto</li>
-        <li class='list-group-item text-right'><span class='pull-left'><strong class=''>Unique ID:</strong></span>$id</li>");
+        else 
+            print("<li class='list-group-item text-right'><span class='pull-left'><strong class=''>Status:</strong></span>Pending</li>
+            <li class='list-group-item text-right'><span class='pull-left'><strong class=''>Test Date:</strong></span>$examDate</li>
+            <li class='list-group-item text-right'><span class='pull-left'><strong class=''>RTO Office:</strong></span>$rto</li>
+            <li class='list-group-item text-right'><span class='pull-left'><strong class=''>Unique ID:</strong></span>$id</li>");
     ?>
     </ul>
+    <?php echo "<br><center><a href='showllHelp.php'><button type='button' class='btn btn-warning'>Show LL</button>  </a> </center>";?>
         </div>
     </div>
     <br>

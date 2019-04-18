@@ -10,7 +10,8 @@
     <?php require_once('header.php'); ?><br>
     <div class='col-lg-6 m-auto d-block'>
     <?php
-        require_once('header.php');
+        // require_once('header.php');
+        echo "eeee";
         error_reporting(0);
         session_start();
         require_once('Connection.php');
@@ -34,7 +35,7 @@
             session_destroy();
             // die();
         }
-        else 
+        else if ($status == 0)
         {
             print(" <div class='row'>
                     <div class='col-lg-6 m-auto d-block'>

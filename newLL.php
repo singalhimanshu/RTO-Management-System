@@ -164,6 +164,10 @@
                 document.getElementById('aadharerr').innerHTML =" ** Please fill the aadhar field";
                 return false;
             }
+            else if(aadhar.toString().length != 10) {
+				document.getElementById('aadharerr').innerHTML =" ** Aadhar No should be of 10 digits";
+				return false;	
+			}
             if (gender == "") {
                 document.getElementById('gendererr').innerHTML =" ** Please fill the gender field";
                 return false;
